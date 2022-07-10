@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html　lang="ja">
+<head>
+<meta charset="UTF-8">
+    
+<pre class="lang:js decode:true"> 
+    
+    <h3 id="subject"></h3>
+<p>&nbsp;</p>
+<form name="typing"><input name="input" type="text" /> <input name="btn" type="button" value="送信" /></form>
+<p>&nbsp;</p>
+<p id="timer">制限時間：秒</p>
+<p>&nbsp;</p>
+
+</pre>
+
+    <h2>遊び方\n上に表示されている単語をそのままフォームに入力し送信をタップ\nエンターを押すとリセットされます </h2>
+    
+<script>
+    
+const subject = document.getElementById('subject');
+const timer = document.getElementById('timer');
+const form = document.forms.typing;
+const textList = [
+    "extraordinary",
+    "kangaroo",
+    "marsupial",
+    "wildlife",
+    "active",
+    "economical",
+    "wonder",
+    "alone",
+    "efficient",
+    "medium",
+    "tendon",
+    "intestine",
+    "empty",
+    "lung",
+    "feed",
+    "efficiency",
+    "must",
+    "koala",
+    "basically",
+    "shut",
+    "fragment",
+    "relatively",
+    "access",
+    "worthwhile",
+    "basic",
+    "operate",
+    "orifin",
+    "rhythm",
+];
+let TIME = 60;
+let count = 0;
+let state = true;
+let replacewordlist = [];
+ 
+const countdown = setInterval(function() {
+  timer.textContent = '制限時間：' + --TIME + '秒';
+  if(TIME <= 0) finish();
+}, 1000);
+    
+form.btn.addEventListener('click', function(e) {
+  if(!state) return;
+ 
+  if(form.input.value === subject.textContent) {
+    count++;
+    init();
+  } else {
+    subject.textContent = '間違いです！';
+    setTimeout(function(){ init() },1000)
+  }
+});
+ 
+init();
+ 
+function init() {
+  const rnd = Math.floor(Math.random() * textList.length);
+ 
+    subject.textContent = textList[rnd];
+  form.input.value = '';
+  form.input.focus();
+}
+    
+    
+function finish() {
+  clearInterval(countdown);
+  subject.textContent = '正解数は' + count + '個でした！';
+  state = false;
+}
+     </script>
+    
+<style>
+    form {
+        text-align: center;
+        font-size: 600%;
+        margin:0;
+    }
+</style>
+<style>
+    p {
+        text-align: center;
+        font-size: 180%;
+        margin:0;
+        padding:0;
+    }
+</style>
+<style>
+    h3 {
+        text-align: center;
+        margin:0;
+        padding:0;
+    }
+</style>
+    </head>
+</html>
